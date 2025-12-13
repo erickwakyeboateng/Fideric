@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fideric Foods: Premium Shito, Plantain Chips & Catering Services | Authentic Delights</title>
+    <meta name="description"
+        content="Experience the rich, authentic flavors of Fideric Foods, featuring our signature Shito, crunchy Plantain Chips, and fresh Spring Rolls. Professional catering and easy WhatsApp ordering available. Quality Ghanaian cuisine.">
+    <meta name="keywords"
+        content="Fideric Foods, Shito, Plantain Chips, Spring Rolls, Ghanaian food, premium catering, food delivery, WhatsApp order, Accra food, best chili sauce">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* --- 1. CSS Reset & Global Styles --- */
+        :root {
+            --primary-color: #FF9933;
+            /* Bright Orange/Apricot */
+            --secondary-color: #A0311E;
+            /* Rich Dark Red/Brown, for Headings/Contrast */
+            --accent-color: #D4AF37;
+            /* Gold/Yellow, for buttons */
+            --background-light: #F9F9F9;
+            /* Very Soft Grey Background */
+            --text-dark: #333333;
+            --text-light: #ffffff;
+            --font-heading: 'Lora', serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: var(--background-light);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 25px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: var(--font-heading);
+            color: var(--secondary-color);
+            margin-bottom: 0.5em;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+        }
+
+        h2 {
+            font-size: 2.8rem;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+        }
+
+        section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-weight: 300;
+            font-size: 1.15rem;
+            color: #777;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            margin-top: 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: var(--secondary-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-primary:hover {
+            background-color: #c4a031;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            border-color: var(--secondary-color);
+            margin-left: 15px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #7a2517;
+            transform: translateY(-2px);
+        }
+
+        /* --- 2. Header & Navigation --- */
+        header {
+            background-color: var(--text-light);
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-dark);
+            padding: 0 18px;
+            font-weight: 400;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        nav ul li:last-child {
+            margin-left: 10px;
+        }
+
+        nav ul li:last-child .btn-primary {
+            margin-top: 0;
+            padding: 8px 20px;
+            font-size: 0.9rem;
+        }
+
+        /* --- 3. Hero Section (CSS Slider Implementation) --- */
+
+        #hero {
+            height: 550px;
+            /* Define a fixed height for the slider */
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slider-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 2;
+            /* Content sits above images */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        #hero h1 {
+            color: var(--accent-color);
+            font-size: 4.8rem;
+            margin-bottom: 0.1em;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        #hero p {
+            font-size: 1.4rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        /* Slider Logic */
+        .slider-images {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            animation: slideAnimation 15s infinite;
+            /* Total time: 5s per image * 3 images */
+        }
+
+        .slider-images .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        /* Placeholder Images (REPLACE with your actual paths) */
+        .slide:nth-child(1) {
+            background-image: url('images/shito-hero.jpg');
+        }
+
+        .slide:nth-child(2) {
+            background-image: url('images/catering-hero.jpg');
+        }
+
+        .slide:nth-child(3) {
+            background-image: url('images/snacks-hero.jpg');
+        }
+
+        /* Overlay for Readability */
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.55);
+        }
+
+        /* Keyframe Animation to control opacity (fade effect) */
+        @keyframes slideAnimation {
+            0% {
+                opacity: 1;
+            }
+
+            /* Start with slide 1 */
+            25% {
+                opacity: 1;
+            }
+
+            33% {
+                opacity: 0;
+            }
+
+            /* Fade out slide 1 */
+            34% {
+                opacity: 0;
+            }
+
+            /* Keep slide 2 hidden momentarily */
+
+            35% {
+                opacity: 1;
+            }
+
+            /* Start slide 2 */
+            58% {
+                opacity: 1;
+            }
+
+            66% {
+                opacity: 0;
+            }
+
+            /* Fade out slide 2 */
+            67% {
+                opacity: 0;
+            }
+
+            /* Keep slide 3 hidden momentarily */
+
+            68% {
+                opacity: 1;
+            }
+
+            /* Start slide 3 */
+            92% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+
+            /* End slide 3 */
+        }
+
+        /* Assigning the animation sequence to the slides */
+        .slider-images .slide:nth-child(1) {
+            animation: slideAnimation 15s infinite 0s;
+        }
+
+        .slider-images .slide:nth-child(2) {
+            animation: slideAnimation 15s infinite 5s;
+        }
+
+        .slider-images .slide:nth-child(3) {
+            animation: slideAnimation 15s infinite 10s;
+        }
+
+
+        /* --- 4. Products Section --- */
+        #products {
+            background-color: var(--background-light);
+            padding-bottom: 50px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .product-card {
+            background: var(--text-light);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.08);
+            text-align: left;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-info h3 {
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            text-align: left;
+            font-size: 1.7rem;
+        }
+
+        .product-info p {
+            font-size: 0.95rem;
+            color: #555;
+            min-height: 80px;
+        }
+
+        .product-card .btn-primary {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            padding: 10px 20px;
+        }
+
+        /* --- 5. Catering Section --- */
+        #catering {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            padding: 120px 0;
+        }
+
+        #catering h2 {
+            color: var(--text-dark);
+            /* Dark text on Orange background */
+            margin-bottom: 20px;
+        }
+
+        #catering .section-subtitle {
+            color: var(--secondary-color);
+            margin-bottom: 40px;
+        }
+
+        .catering-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .catering-content p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+        }
+
+        .catering-content .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            border-color: var(--secondary-color);
+        }
+
+        .catering-content .btn-primary:hover {
+            background-color: #7a2517;
+            border-color: #7a2517;
+            color: var(--text-light);
+        }
+
+        /* --- 6. Footer --- */
+        footer {
+            background-color: var(--secondary-color);
+            color: var(--text-light);
+            padding: 30px 0;
+            font-size: 0.85rem;
+        }
+
+        footer p {
+            margin: 0;
+            font-weight: 300;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: var(--accent-color);
+        }
+
+        /* --- 7. Mobile Responsiveness --- */
+        @media (max-width: 900px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            #hero {
+                height: 400px;
+            }
+
+            /* Smaller slider on mobile */
+            #hero h1 {
+                font-size: 3rem;
+            }
+
+            #hero p {
+                font-size: 1.1rem;
+            }
+
+            header .container {
+                flex-direction: column;
+                height: auto;
+                padding: 10px 25px;
+            }
+
+            .logo {
+                margin-bottom: 10px;
+            }
+
+            nav ul {
+                flex-direction: column;
+                width: 100%;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+
+            nav ul li:last-child {
+                margin-left: 0;
+            }
+
+            nav ul li:last-child .btn-primary {
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+
+            .btn-secondary {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .product-info p {
+                min-height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#hero" class="logo">FIDERIC FOODS</a>
+            <nav>
+                <ul>
+                    <li><a href="#products">Menu</a></li>
+                    <li><a href="#catering">Catering</a></li>
+                    <li><a href="https://www.whatsapp.com/catalog/233554775921/" target="_blank"
+                            class="btn btn-primary">Order Now</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="slider-images">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+        </div>
+
+        <div class="slider-content">
+            <h1>AUTHENTIC GHANAIAN & CONTINENTAL CUISINE</h1>
+            <p>Quality, flavor, and tradition crafted into every dish. Experience the Fideric Foods difference.</p>
+            <a href="https://www.whatsapp.com/catalog/233554775921/" target="_blank" class="btn btn-primary">
+                🛒 View Catalog & Order on WhatsApp
+            </a>
+            <a href="#catering" class="btn btn-secondary">
+                Book Catering Services
+            </a>
+        </div>
+    </section>
+
+    <section id="products">
+        <div class="container">
+            <h2>Our Signature Menu Items</h2>
+            <p class="section-subtitle">Handcrafted with the finest ingredients and packed with flavor. Taste the
+                difference that passion makes.</p>
+
+            <div class="product-grid">
+
+                <div class="product-card">
+                    <img src="images/shito.jpg"
+                        alt="Jar of Fideric Foods' premium Ghanaian Shito Black Chili Sauce with fish and shrimp"
+                        loading="lazy">
+                    <div class="product-info">
+                        <h3>Premium Shito</h3>
+                        <p>The perfect blend of smoked fish, shrimp, onions, and rich spices. Deep, savory, and
+                            powerfully addictive. Essential for a true Ghanaian dining experience.</p>
+                        <a href="https://www.whatsapp.com/catalog/233554775921/" target="_blank"
+                            class="btn btn-primary">Buy Shito Now</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/plantain-chips.jpg" alt="Golden, crispy Plantain Chips snack ready to eat"
+                        loading="lazy">
+                    <div class="product-info">
+                        <h3>Gourmet Plantain Chips</h3>
+                        <p>Thinly sliced, perfectly seasoned, and fried to an unmatched crunch. A healthy, gluten-free
+                            snack that balances natural sweetness and savory notes flawlessly.</p>
+                        <a href="https://www.whatsapp.com/catalog/233554775921/" target="_blank"
+                            class="btn btn-primary">Snack Time!</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <img src="images/spring-rolls.jpg"
+                        alt="Platter of freshly fried golden-brown Spring Rolls with dipping sauce" loading="lazy">
+                    <div class="product-info">
+                        <h3>Deluxe Spring Rolls</h3>
+                        <p>Crisp on the outside, moist and flavorful on the inside. Our spring rolls are sold **frozen
+                            and ready to fry**, allowing you to enjoy them hot and fresh at home!</p>
+                        <a href="https://www.whatsapp.com/catalog/233554775921/" target="_blank"
+                            class="btn btn-primary">Get Appetizers</a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="catering">
+        <div class="container">
+            <h2>⭐ Seamless Event Catering</h2>
+            <p class="section-subtitle">Elevate your next event with a customized menu from Fideric Foods. We deliver
+                exceptional taste and presentation for any gathering, big or small.</p>
+
+            <div class="catering-content">
+                <p>Focus on your guests while we handle the culinary magic. From intimate family gatherings to large
+                    corporate functions, we offer flexible packages featuring a wide array of Ghanaian and Continental
+                    dishes.</p>
+                <p>**Services include:** Menu Consultation, Food Preparation, Delivery, and Professional On-Site Setup.
+                </p>
+
+                <a href="https://wa.me/233554775921?text=Hello%20Fideric%20Foods%2C%20I%20am%20interested%20in%20your%20catering%20services.%20My%20event%20is%20for%20[DATE]%20and%20[NUMBER]%20guests."
+                    target="_blank" class="btn btn-primary">
+                    Request a Personalized Catering Quote
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container text-center">
+            <p>Fideric Foods | Authentic Ghanaian & Continental Cuisine</p>
+            <p>Order Delivery & Takeaway via <a href="https://www.whatsapp.com/catalog/233554775921/"
+                    target="_blank">WhatsApp Catalog</a> | Phone/WhatsApp: +233 (55) 477 5921</p>
+            <p>&copy; 2025 Fideric Foods. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
