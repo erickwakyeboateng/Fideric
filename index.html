@@ -227,10 +227,10 @@
                         <p class="text-stone-600 mb-6 line-clamp-3">The perfect blend of smoked fish, shrimp, onions,
                             and rich spices. Deep, savory, and powerfully addictive. Essential for a true Ghanaian
                             dining experience.</p>
-                        <a href="https://wa.me/233554775921?text=I%20want%20to%20buy%20Shito" target="_blank"
+                        <button onclick="openOrderModal('shito', 80)"
                             class="inline-block w-full text-center border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white font-bold py-3 rounded-lg transition-all">
                             Buy Now
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -251,10 +251,10 @@
                         <p class="text-stone-600 mb-6 line-clamp-3">Thinly sliced, perfectly seasoned, and fried to an
                             unmatched crunch. A healthy snack that balances natural sweetness and savory notes
                             flawlessly.</p>
-                        <a href="https://wa.me/233554775921?text=I%20want%20to%20buy%20Plantain%20Chips" target="_blank"
+                        <button onclick="openOrderModal('plantain-chips')"
                             class="inline-block w-full text-center border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white font-bold py-3 rounded-lg transition-all">
                             Buy Now
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -272,10 +272,10 @@
                         <p class="text-stone-600 mb-6 line-clamp-3">Crisp on the outside, moist and flavorful on the
                             inside. Our spring rolls are sold <strong>frozen or fried</strong>, allowing you to enjoy
                             them instantly or fresh at home.</p>
-                        <a href="https://wa.me/233554775921?text=I%20want%20to%20buy%20Spring%20Rolls" target="_blank"
+                        <button onclick="openOrderModal('spring-rolls', 14)"
                             class="inline-block w-full text-center border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white font-bold py-3 rounded-lg transition-all">
                             Buy Now
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -561,6 +561,42 @@
         </div>
     </footer>
 
+    <!-- Order Modal -->
+    <div id="order-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold">Place Your Order</h2>
+                <button onclick="closeOrderModal()" class="text-2xl">&times;</button>
+            </div>
+            <form id="order-form">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Product</label>
+                    <select id="product-type" class="w-full p-2 border rounded">
+                        <option value="shito">Premium Shito (₵80)</option>
+                        <option value="plantain-chips-20">Plantain Chips ₵20</option>
+                        <option value="plantain-chips-50">Plantain Chips ₵50</option>
+                        <option value="plantain-chips-100">Plantain Chips ₵100</option>
+                        <option value="spring-rolls">Spring Rolls (₵50/14pcs)</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Quantity</label>
+                    <input type="number" id="order-quantity" min="1" value="1" class="w-full p-2 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Phone Number</label>
+                    <input type="tel" id="order-phone" required placeholder="+233554775921"
+                        class="w-full p-2 border rounded">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Delivery Address (Optional)</label>
+                    <input type="text" id="order-address" class="w-full p-2 border rounded">
+                </div>
+                <button type="submit" class="w-full bg-brand-primary text-white py-2 rounded">Send Order</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script>
         // Mobile Menu Toggle
@@ -592,22 +628,54 @@
             }
         });
 
-        // WhatsApp Form Handler
-        document.getElementById('whatsapp-form').addEventListener('submit', function (e) {
+        // Order Modal Functions
+        function openOrderModal(product, basePrice) {
+            document.getElementById('order-modal').classList.remove('hidden');
+            if (product === 'plantain-chips') {
+                document.getElementById('product-type').value = 'plantain-chips-20';
+            } else if (product === 'spring-rolls') {
+                document.getElementById('product-type').value = 'spring-rolls';
+            } else {
+                document.getElementById('product-type').value = product;
+            }
+        }
+
+        function closeOrderModal() {
+            document.getElementById('order-modal').classList.add('hidden');
+        }
+
+        // Handle Order Form Submission
+        document.getElementById('order-form').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            const name = document.getElementById('name').value;
-            const phone = document.getElementById('phone-input').value;
-            const message = document.getElementById('message').value;
+            const product = document.getElementById('product-type').value;
+            const quantity = parseInt(document.getElementById('order-quantity').value);
+            const phone = document.getElementById('order-phone').value;
+            const address = document.getElementById('order-address').value;
 
-            // Format the message
-            const whatsappMessage = `*New Inquiry from Website*%0A%0A*Name:* ${name}%0A*Phone:* ${phone}%0A*Message:* ${message}`;
+            let price = 0;
+            let description = '';
 
-            // Fideric Foods Number
-            const targetNumber = '233554775921';
+            if (product.startsWith('plantain-chips-')) {
+                const amount = product.split('-').pop();
+                price = parseInt(amount) * quantity;
+                description = `Plantain Chips ₵${amount} x ${quantity}`;
+            } else if (product === 'plantain-chips') {
+                // Default to ₵20 if no specific price selected
+                price = 20 * quantity;
+                description = `Plantain Chips x ${quantity}`;
+            } else if (product === 'shito') {
+                price = 80 * quantity;
+                description = `Premium Shito x ${quantity}`;
+            } else if (product === 'spring-rolls') {
+                price = 50 * quantity;
+                description = `Spring Rolls x ${quantity}`;
+            }
 
-            // Open WhatsApp
-            window.open(`https://wa.me/${targetNumber}?text=${whatsappMessage}`, '_blank');
+            const message = `*New Order*%0A%0A*Product:* ${description}%0A*Quantity:* ${quantity}%0A*Total:* ₵${price}%0A*Phone:* ${phone}${address ? `%0A*Address:* ${address}` : ''}`;
+
+            window.open(`https://wa.me/233554775921?text=${message}`, '_blank');
+            closeOrderModal();
         });
     </script>
 </body>
