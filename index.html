@@ -129,7 +129,7 @@
                     class="text-stone-700 hover:text-brand-primary font-medium transition-colors">Catering</a>
                 <a href="#contact-us"
                     class="text-stone-700 hover:text-brand-primary font-medium transition-colors">Contact</a>
-                <a href="https://wa.me/233554775921" target="_blank"
+                <a onclick="openOrderModal('spring-rolls', 14)"
                     class="bg-brand-primary hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path
@@ -506,7 +506,8 @@
                 <div class="text-center md:text-left">
                     <h4 class="text-white font-heading text-2xl font-bold mb-2">FIDERIC FOODS</h4>
                     <p class="text-sm opacity-80 mb-4">Authentic Ghanaian & Continental Cuisine</p>
-                    <a href="https://share.google/mflzPCU0MPssnGhQ2" target="_blank"
+                    <a href="https://www.google.com/search?sca_esv=319781348538de1a&rlz=1CDGOYI_enGH1106GH1106&hl=en-GB&sxsrf=AE3TifOfAl7xh0FDfIgPuJxNc10ldZYnwQ:1765751330056&q=fideric+foods+reviews&uds=AOm0WdGgsqg_ZgNIpT6YUNWj_B9i6sIfdWs6BXuGdRLZKDlRgdWu3aescqZ7ROwmbP03Ro5sWZ88opW7lxAaOfq_kBECzfP8dL15_3tEQ9YoFHxl11TuIiNCNd8K5QjOfOG64t3w5AyTdM8mZ92Fgy59WFA0vV6nWHK89T_4QHUqQygyRG1kDFJkapO7Ig00jTHVpzwlSBKTcGdnh9p4Yo_c46wZhjcfZD81UVxJ9YD5YPKFV3NSRFqaAklgW78tWLoh0OGGAC4l0QWZJ97tYn_GSOOSclzRwj5HrnuTq0OoPBfM8jqi9eCMzo1VFbMG9FI5xRuZny7TGsrcBDNJx6KJAj_FegyttsfY6I7UlosssKDqXfLYa5zY_THjK3ji87NV8uVlvttq&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E0LrvOTOJW8mObZ_ktAz-eWBxkiJ72kQCIBq0ZwwdBhD1L3GZ1NPh9LgktxZwsvnIZb9fuxPNm_3NnoCQxw7PO0I4Fvn&sa=X&ved=2ahUKEwi2s6imkL6RAxXuX0EAHcIbAhEQk8gLegQIFxAB&ictx=1&stq=1&cs=1&lei=Ijo_abaaA-6_hbIPwreIiAE#ebo=2"
+                        target="_blank"
                         class="text-brand-primary hover:text-white text-sm font-bold flex items-center justify-center md:justify-start gap-1 transition-colors">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -542,15 +543,6 @@
                         </svg>
                     </a>
 
-                    <!-- Google Reviews -->
-                    <a href="https://share.google/mflzPCU0MPssnGhQ2" target="_blank"
-                        class="w-10 h-10 rounded-full bg-stone-800 hover:bg-brand-primary flex items-center justify-center transition-colors text-white"
-                        title="Rate us on Google">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
-                        </svg>
-                    </a>
                 </div>
             </div>
 
@@ -576,13 +568,19 @@
                         <option value="plantain-chips-20">Plantain Chips ₵20</option>
                         <option value="plantain-chips-50">Plantain Chips ₵50</option>
                         <option value="plantain-chips-100">Plantain Chips ₵100</option>
-                        <option value="spring-rolls">Frozen Spring Rolls (₵50/14pcs)</option>
+                        <option value="spring-rolls">Spring Rolls (₵50/14pcs)</option>
                     </select>
                 </div>
                 <div class="mb-4">
                     <label class="block text-sm font-medium mb-2">Quantity</label>
                     <input type="number" id="order-quantity" min="1" value="1" class="w-full p-2 border rounded">
                 </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium mb-2">Name</label>
+                    <input type="text" id="order-name" class="w-full p-2 border rounded" placeholder="John Doe"
+                        required>
+                </div>
+
                 <div class="mb-4">
                     <label class="block text-sm font-medium mb-2">Phone Number</label>
                     <input type="tel" id="order-phone" required placeholder="+233554775921"
@@ -650,6 +648,7 @@
 
             const product = document.getElementById('product-type').value;
             const quantity = parseInt(document.getElementById('order-quantity').value);
+            const name = document.getElementById('order-name').value;
             const phone = document.getElementById('order-phone').value;
             const address = document.getElementById('order-address').value;
 
@@ -672,10 +671,38 @@
                 description = `Spring Rolls x ${quantity}`;
             }
 
-            const message = `*New Order*%0A%0A*Product:* ${description}%0A*Quantity:* ${quantity}%0A*Total:* ₵${price}%0A*Phone:* ${phone}${address ? `%0A*Address:* ${address}` : ''}`;
+            const message = `*New Order From ${name}*%0A%0A*Product:* ${description}%0A*Quantity:* ${quantity}%0A*Total:* ₵${price}${name ? `%0A%0A*Name:* ${name}` : ''}%0A*Phone:* ${phone}${address ? `%0A*Address:* ${address}` : ''}`;
 
             window.open(`https://wa.me/233554775921?text=${message}`, '_blank');
             closeOrderModal();
+        });
+
+        // Handle WhatsApp Order Form Submission
+        document.getElementById('whatsapp-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Get form values
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone-input').value;
+            const user_message = document.getElementById('message').value;
+
+            // Validate fields
+            if (!name || !phone) {
+                alert('Please fill in your name and phone number');
+                return;
+            }
+
+            // Format WhatsApp message
+            const text = `*New Order from ${name}*${name ? `\n\n*Name:* ${name}` : ''}\n*Phone:* ${phone}${user_message ? `\n*Message:* ${user_message}` : ''}`;
+
+            // Open WhatsApp with the message
+            window.open(`https://wa.me/233554775921?text=${encodeURIComponent(text)}`, '_blank');
+
+            // Optional: Reset form after submission
+            this.reset();
+
+            // Optional: Show success message
+            alert('Your message has been sent to WhatsApp!');
         });
     </script>
 </body>
