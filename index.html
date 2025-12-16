@@ -554,6 +554,7 @@
     </footer>
 
     <!-- Order Modal -->
+    <!-- Order Modal -->
     <div id="order-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
         <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
             <div class="flex justify-between items-center mb-4">
@@ -563,19 +564,47 @@
             <form id="order-form">
                 <div class="mb-4">
                     <label class="block text-sm font-medium mb-2">Product</label>
-                    <select id="product-type" class="w-full p-2 border rounded">
-                        <option value="shito">Premium Shito (₵80)</option>
+                    <select id="product-type" class="w-full p-2 border rounded" onchange="toggleProductTypes()">
+                        <option value="shito">Premium Shito (₵80-₵85)</option>
                         <option value="plantain-chips-20">Plantain Chips ₵20</option>
                         <option value="plantain-chips-50">Plantain Chips ₵50</option>
                         <option value="plantain-chips-100">Plantain Chips ₵100</option>
-                        <option value="plantain-chips-20">Ripe Plantain Chips ₵20</option>
-                        <option value="plantain-chips-50">Ripe Plantain Chips ₵50</option>
-                        <option value="plantain-chips-100">Ripe Plantain Chips ₵100</option>
                         <option value="spring-rolls-35">Frozen Spring Rolls (₵35/10pcs)</option>
                         <option value="spring-rolls-60">Frozen Spring Rolls (₵60/20pcs)</option>
                         <option value="spring-rolls-140">Frozen Spring Rolls (₵140/50pcs)</option>
                     </select>
                 </div>
+
+                <!-- Plantain Type Selection (Hidden by default) -->
+                <div id="plantain-type-section" class="mb-4 hidden">
+                    <label class="block text-sm font-medium mb-2">Type</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="plantain-type" value="ripe" class="mr-2" checked>
+                            <span>Ripe</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="plantain-type" value="non-ripe" class="mr-2">
+                            <span>Non-Ripe</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Premium Shito Type Selection (Hidden by default) -->
+                <div id="shito-type-section" class="mb-4 hidden">
+                    <label class="block text-sm font-medium mb-2">Type</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center">
+                            <input type="radio" name="shito-type" value="regular" class="mr-2" checked>
+                            <span>Regular (₵80)</span>
+                        </label>
+                        <label class="flex items-center">
+                            <input type="radio" name="shito-type" value="meat-chunk" class="mr-2">
+                            <span>Meat Chunk (₵85)</span>
+                        </label>
+                    </div>
+                </div>
+
                 <div class="mb-4">
                     <label class="block text-sm font-medium mb-2">Quantity</label>
                     <input type="number" id="order-quantity" min="1" value="1" class="w-full p-2 border rounded">
@@ -600,6 +629,7 @@
         </div>
     </div>
 
+    <!-- Scripts -->
     <!-- Scripts -->
     <script>
         // Mobile Menu Toggle
@@ -637,14 +667,33 @@
             if (product === 'plantain-chips') {
                 document.getElementById('product-type').value = 'plantain-chips-20';
             } else if (product === 'spring-rolls') {
-                document.getElementById('product-type').value = 'spring-rolls';
+                document.getElementById('product-type').value = 'spring-rolls-35';
             } else {
                 document.getElementById('product-type').value = product;
             }
+            toggleProductTypes();
         }
 
         function closeOrderModal() {
             document.getElementById('order-modal').classList.add('hidden');
+        }
+
+        // Display and Hide Radio Buttons for Products
+        function toggleProductTypes() {
+            const productSelect = document.getElementById('product-type');
+            const plantainTypeSection = document.getElementById('plantain-type-section');
+            const shitoTypeSection = document.getElementById('shito-type-section');
+
+            // Hide all type sections first
+            plantainTypeSection.classList.add('hidden');
+            shitoTypeSection.classList.add('hidden');
+
+            // Show relevant section based on product
+            if (productSelect.value.includes('plantain-chips')) {
+                plantainTypeSection.classList.remove('hidden');
+            } else if (productSelect.value === 'shito') {
+                shitoTypeSection.classList.remove('hidden');
+            }
         }
 
         // Handle Order Form Submission
@@ -657,35 +706,59 @@
             const phone = document.getElementById('order-phone').value;
             const address = document.getElementById('order-address').value;
 
+            // Get plantain type if applicable
+            let plantainType = '';
+            if (product.includes('plantain-chips')) {
+                const selectedType = document.querySelector('input[name="plantain-type"]:checked');
+                if (selectedType) {
+                    plantainType = selectedType.value === 'ripe' ? 'Ripe' : 'Non-Ripe';
+                }
+            }
+
+            // Get shito type if applicable
+            let shitoType = '';
+            let shitoPrice = 80; // Default regular price
+            if (product === 'shito') {
+                const selectedType = document.querySelector('input[name="shito-type"]:checked');
+                if (selectedType) {
+                    if (selectedType.value === 'meat-chunk') {
+                        shitoType = 'Meat Chunk';
+                        shitoPrice = 85;
+                    } else {
+                        shitoType = 'Regular';
+                        shitoPrice = 80;
+                    }
+                }
+            }
+
             let price = 0;
             let description = '';
 
             if (product.startsWith('plantain-chips-')) {
                 const amount = product.split('-').pop();
                 price = parseInt(amount) * quantity;
-                description = `Plantain Chips ₵${amount} x ${quantity}`;
-            } else if (product === 'plantain-chips') {
-                // Default to ₵20 if no specific price selected
-                price = 20 * quantity;
-                description = `Plantain Chips x ${quantity}`;
+                description = `Plantain Chips (${plantainType}) ₵${amount} x ${quantity}`;
             } else if (product === 'shito') {
-                price = 80 * quantity;
-                description = `Premium Shito x ${quantity}`;
+                price = shitoPrice * quantity;
+                description = `Premium Shito (${shitoType}) ₵${shitoPrice} x ${quantity}`;
             } else if (product === 'spring-rolls-35') {
                 price = 35 * quantity;
-                description = `Spring Rolls x ${quantity}`;
+                description = `Frozen Spring Rolls (10pcs) x ${quantity}`;
             } else if (product === 'spring-rolls-60') {
                 price = 60 * quantity;
-                description = `Spring Rolls x ${quantity}`;
+                description = `Frozen Spring Rolls (20pcs) x ${quantity}`;
             } else if (product === 'spring-rolls-140') {
                 price = 140 * quantity;
-                description = `Spring Rolls x ${quantity}`;
+                description = `Frozen Spring Rolls (50pcs) x ${quantity}`;
             }
 
-            const message = `*New Order From ${name}*%0A%0A*Product:* ${description}%0A*Quantity:* ${quantity}%0A*Total:* ₵${price}${name ? `%0A%0A*Name:* ${name}` : ''}%0A*Phone:* ${phone}${address ? `%0A*Address:* ${address}` : ''}`;
+            const message = `*New Order From ${name}*%0A%0A*Product:* ${description}%0A*Total:* ₵${price}%0A%0A*Customer Details:*%0A*Name:* ${name}%0A*Phone:* ${phone}${address ? `%0A*Delivery Address:* ${address}` : ''}`;
 
             window.open(`https://wa.me/233554775921?text=${message}`, '_blank');
             closeOrderModal();
+
+            // Reset form after submission
+            document.getElementById('order-form').reset();
         });
 
         // Handle WhatsApp Order Form Submission
@@ -716,6 +789,3 @@
             alert('Your message has been sent to WhatsApp!');
         });
     </script>
-</body>
-
-</html>
