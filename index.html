@@ -571,7 +571,9 @@
                         <option value="plantain-chips-20">Ripe Plantain Chips ₵20</option>
                         <option value="plantain-chips-50">Ripe Plantain Chips ₵50</option>
                         <option value="plantain-chips-100">Ripe Plantain Chips ₵100</option>
-                        <option value="spring-rolls">Frozen Spring Rolls (₵60/20pcs)</option>
+                        <option value="spring-rolls-35">Frozen Spring Rolls (₵35/10pcs)</option>
+                        <option value="spring-rolls-60">Frozen Spring Rolls (₵60/20pcs)</option>
+                        <option value="spring-rolls-140">Frozen Spring Rolls (₵140/50pcs)</option>
                     </select>
                 </div>
                 <div class="mb-4">
@@ -669,8 +671,14 @@
             } else if (product === 'shito') {
                 price = 80 * quantity;
                 description = `Premium Shito x ${quantity}`;
-            } else if (product === 'spring-rolls') {
+            } else if (product === 'spring-rolls-35') {
+                price = 35 * quantity;
+                description = `Spring Rolls x ${quantity}`;
+            } else if (product === 'spring-rolls-60') {
                 price = 60 * quantity;
+                description = `Spring Rolls x ${quantity}`;
+            } else if (product === 'spring-rolls-140') {
+                price = 140 * quantity;
                 description = `Spring Rolls x ${quantity}`;
             }
 
