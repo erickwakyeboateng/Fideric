@@ -107,6 +107,23 @@
         .hero-overlay {
             background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
         }
+
+        /* Cart Badge Animation */
+        .cart-badge {
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
     </style>
 </head>
 
@@ -129,8 +146,20 @@
                     class="text-stone-700 hover:text-brand-primary font-medium transition-colors">Catering</a>
                 <a href="#contact-us"
                     class="text-stone-700 hover:text-brand-primary font-medium transition-colors">Contact</a>
+
+                <!-- Cart Button -->
+                <button onclick="openCart()" class="relative text-stone-700 hover:text-brand-primary transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                        </path>
+                    </svg>
+                    <span id="cart-count"
+                        class="absolute -top-2 -right-2 bg-brand-primary text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                </button>
+
                 <a onclick="openOrderModal('spring-rolls', 14)"
-                    class="bg-brand-primary hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2">
+                    class="bg-brand-primary hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
@@ -154,8 +183,13 @@
             <a href="#products" class="block text-lg font-medium text-stone-700 hover:text-brand-primary">Products</a>
             <a href="#catering" class="block text-lg font-medium text-stone-700 hover:text-brand-primary">Catering</a>
             <a href="#contact-us" class="block text-lg font-medium text-stone-700 hover:text-brand-primary">Contact</a>
+            <button onclick="openCart()"
+                class="block w-full text-left text-lg font-medium text-stone-700 hover:text-brand-primary">
+                View Cart (<span id="mobile-cart-count">0</span>)
+            </button>
             <a onclick="openOrderModal('spring-rolls', 14)"
-                class="block w-full text-center bg-brand-primary text-white px-6 py-3 rounded-lg font-bold">Order on
+                class="block w-full text-center bg-brand-primary text-white px-6 py-3 rounded-lg font-bold cursor-pointer">Order
+                on
                 WhatsApp</a>
         </div>
     </header>
@@ -229,7 +263,7 @@
                             dining experience.</p>
                         <button onclick="openOrderModal('shito', 80)"
                             class="inline-block w-full text-center border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white font-bold py-3 rounded-lg transition-all">
-                            Buy Now
+                            Add to Cart
                         </button>
                     </div>
                 </div>
@@ -253,7 +287,7 @@
                             flawlessly.</p>
                         <button onclick="openOrderModal('plantain-chips')"
                             class="inline-block w-full text-center border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white font-bold py-3 rounded-lg transition-all">
-                            Buy Now
+                            Add to Cart
                         </button>
                     </div>
                 </div>
@@ -274,7 +308,7 @@
                             them instantly or fresh at home.</p>
                         <button onclick="openOrderModal('spring-rolls', 14)"
                             class="inline-block w-full text-center border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white font-bold py-3 rounded-lg transition-all">
-                            Buy Now
+                            Add to Cart
                         </button>
                     </div>
                 </div>
@@ -554,11 +588,10 @@
     </footer>
 
     <!-- Order Modal -->
-    <!-- Order Modal -->
-    <div id="order-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden">
-        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
+    <div id="order-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold">Place Your Order</h2>
+                <h2 class="text-xl font-bold">Add to Cart</h2>
                 <button onclick="closeOrderModal()" class="text-2xl">&times;</button>
             </div>
             <form id="order-form">
@@ -575,7 +608,7 @@
                     </select>
                 </div>
 
-                <!-- Plantain Type Selection (Hidden by default) -->
+                <!-- Plantain Type Selection -->
                 <div id="plantain-type-section" class="mb-4 hidden">
                     <label class="block text-sm font-medium mb-2">Type</label>
                     <div class="flex gap-4">
@@ -590,7 +623,7 @@
                     </div>
                 </div>
 
-                <!-- Premium Shito Type Selection (Hidden by default) -->
+                <!-- Premium Shito Type Selection -->
                 <div id="shito-type-section" class="mb-4 hidden">
                     <label class="block text-sm font-medium mb-2">Type</label>
                     <div class="flex gap-4">
@@ -609,28 +642,235 @@
                     <label class="block text-sm font-medium mb-2">Quantity</label>
                     <input type="number" id="order-quantity" min="1" value="1" class="w-full p-2 border rounded">
                 </div>
-                <div class="mb-4">
-                    <label class="block text-sm font-medium mb-2">Name</label>
-                    <input type="text" id="order-name" class="w-full p-2 border rounded" placeholder="John Doe"
-                        required>
-                </div>
 
-                <div class="mb-4">
-                    <label class="block text-sm font-medium mb-2">Phone Number</label>
-                    <input type="tel" id="order-phone" required placeholder="+233554775921"
-                        class="w-full p-2 border rounded">
-                </div>
-                <div class="mb-4">
-                    <label class="block text-sm font-medium mb-2">Delivery Address (Optional)</label>
-                    <input type="text" id="order-address" class="w-full p-2 border rounded">
-                </div>
-                <button type="submit" class="w-full bg-brand-primary text-white py-2 rounded">Send Order</button>
+                <button type="submit"
+                    class="w-full bg-brand-primary text-white py-3 rounded font-bold hover:bg-orange-600 transition-colors">Add
+                    to Cart</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-lg p-6 w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Your Cart</h2>
+                <button onclick="closeCart()" class="text-2xl">&times;</button>
+            </div>
+
+            <div id="cart-items" class="space-y-3 mb-6">
+                <!-- Cart items will be inserted here -->
+            </div>
+
+            <div class="border-t pt-4 mb-6">
+                <div class="flex justify-between items-center text-xl font-bold">
+                    <span>Total:</span>
+                    <span id="cart-total">₵0</span>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Your Name *</label>
+                    <input type="text" id="cart-name" required class="w-full p-3 border rounded" placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Phone Number *</label>
+                    <input type="tel" id="cart-phone" required class="w-full p-3 border rounded"
+                        placeholder="+233554775921">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Delivery Address (Optional)</label>
+                    <input type="text" id="cart-address" class="w-full p-3 border rounded"
+                        placeholder="Your delivery address">
+                </div>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <button onclick="clearCart()"
+                    class="flex-1 bg-red-500 text-white py-3 rounded font-bold hover:bg-red-600 transition-colors">
+                    Clear Cart
+                </button>
+                <button onclick="checkoutCart()"
+                    class="flex-1 bg-brand-primary text-white py-3 rounded font-bold hover:bg-orange-600 transition-colors flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                    </svg>
+                    Send Order
+                </button>
+            </div>
         </div>
     </div>
 
     <!-- Scripts -->
     <script>
+        // Shopping Cart
+        let cart = [];
+
+        // Load cart from localStorage
+        function loadCart() {
+            const savedCart = localStorage.getItem('fidericCart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartUI();
+            }
+        }
+
+        // Save cart to localStorage
+        function saveCart() {
+            localStorage.setItem('fidericCart', JSON.stringify(cart));
+        }
+
+        // Update cart count in UI
+        function updateCartUI() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const cartCount = document.getElementById('cart-count');
+            const mobileCartCount = document.getElementById('mobile-cart-count');
+
+            if (count > 0) {
+                cartCount.textContent = count;
+                cartCount.classList.remove('hidden');
+                cartCount.classList.add('cart-badge');
+                mobileCartCount.textContent = count;
+            } else {
+                cartCount.classList.add('hidden');
+                mobileCartCount.textContent = '0';
+            }
+        }
+
+        // Add item to cart
+        function addToCart(item) {
+            const existingItem = cart.find(i =>
+                i.product === item.product &&
+                i.type === item.type
+            );
+
+            if (existingItem) {
+                existingItem.quantity += item.quantity;
+            } else {
+                cart.push(item);
+            }
+
+            saveCart();
+            updateCartUI();
+
+            // Show success message
+            alert('Item added to cart!');
+        }
+
+        // Remove item from cart
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            saveCart();
+            updateCartUI();
+            renderCart();
+        }
+
+        // Clear entire cart
+        function clearCart() {
+            if (confirm('Are you sure you want to clear your cart?')) {
+                cart = [];
+                saveCart();
+                updateCartUI();
+                renderCart();
+            }
+        }
+
+        // Render cart items
+        function renderCart() {
+            const cartItemsDiv = document.getElementById('cart-items');
+            const cartTotalDiv = document.getElementById('cart-total');
+
+            if (cart.length === 0) {
+                cartItemsDiv.innerHTML = '<p class="text-center text-gray-500 py-8">Your cart is empty</p>';
+                cartTotalDiv.textContent = '₵0';
+                return;
+            }
+
+            let total = 0;
+            cartItemsDiv.innerHTML = cart.map((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+
+                return `
+                    <div class="flex justify-between items-center bg-gray-50 p-3 rounded">
+                        <div class="flex-1">
+                            <p class="font-medium">${item.description}</p>
+                            <p class="text-sm text-gray-600">₵${item.price} × ${item.quantity} = ₵${itemTotal}</p>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 ml-3">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+
+            cartTotalDiv.textContent = `₵${total}`;
+        }
+
+        // Open cart modal
+        function openCart() {
+            renderCart();
+            document.getElementById('cart-modal').classList.remove('hidden');
+        }
+
+        // Close cart modal
+        function closeCart() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        }
+
+        // Checkout cart
+        function checkoutCart() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+
+            const name = document.getElementById('cart-name').value.trim();
+            const phone = document.getElementById('cart-phone').value.trim();
+            const address = document.getElementById('cart-address').value.trim();
+
+            if (!name || !phone) {
+                alert('Please fill in your name and phone number');
+                return;
+            }
+
+            // Build WhatsApp message
+            let message = `*New Order from ${name}*%0A%0A`;
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                message += `${index + 1}. ${item.description}%0A   ₵${item.price} × ${item.quantity} = ₵${itemTotal}%0A%0A`;
+            });
+
+            message += `*Total: ₵${total}*%0A%0A`;
+            message += `*Customer Details:*%0A`;
+            message += `Name: ${name}%0A`;
+            message += `Phone: ${phone}`;
+            if (address) {
+                message += `%0ADelivery Address: ${address}`;
+            }
+
+            // Open WhatsApp
+            window.open(`https://wa.me/233554775921?text=${message}`, '_blank');
+
+            // Clear cart after order
+            cart = [];
+            saveCart();
+            updateCartUI();
+            closeCart();
+
+            // Reset form
+            document.getElementById('cart-name').value = '';
+            document.getElementById('cart-phone').value = '';
+            document.getElementById('cart-address').value = '';
+        }
+
         // Mobile Menu Toggle
         const btn = document.getElementById('mobile-menu-btn');
         const menu = document.getElementById('mobile-menu');
@@ -695,15 +935,12 @@
             }
         }
 
-        // Handle Order Form Submission
+        // Handle Order Form Submission (Add to Cart)
         document.getElementById('order-form').addEventListener('submit', function (e) {
             e.preventDefault();
 
             const product = document.getElementById('product-type').value;
             const quantity = parseInt(document.getElementById('order-quantity').value);
-            const name = document.getElementById('order-name').value;
-            const phone = document.getElementById('order-phone').value;
-            const address = document.getElementById('order-address').value;
 
             // Get plantain type if applicable
             let plantainType = '';
@@ -716,7 +953,7 @@
 
             // Get shito type if applicable
             let shitoType = '';
-            let shitoPrice = 80; // Default regular price
+            let shitoPrice = 80;
             if (product === 'shito') {
                 const selectedType = document.querySelector('input[name="shito-type"]:checked');
                 if (selectedType) {
@@ -732,59 +969,68 @@
 
             let price = 0;
             let description = '';
+            let type = '';
 
             if (product.startsWith('plantain-chips-')) {
                 const amount = product.split('-').pop();
-                price = parseInt(amount) * quantity;
-                description = `Plantain Chips (${plantainType}) ₵${amount} x ${quantity}`;
+                price = parseInt(amount);
+                description = `Plantain Chips (${plantainType}) ₵${amount}`;
+                type = `plantain-${plantainType}-${amount}`;
             } else if (product === 'shito') {
-                price = shitoPrice * quantity;
-                description = `Premium Shito (${shitoType}) ₵${shitoPrice} x ${quantity}`;
+                price = shitoPrice;
+                description = `Premium Shito (${shitoType}) ₵${shitoPrice}`;
+                type = `shito-${shitoType}`;
             } else if (product === 'spring-rolls-35') {
-                price = 35 * quantity;
-                description = `Frozen Spring Rolls (10pcs) x ${quantity}`;
+                price = 35;
+                description = `Frozen Spring Rolls (10pcs)`;
+                type = 'spring-rolls-10';
             } else if (product === 'spring-rolls-60') {
-                price = 60 * quantity;
-                description = `Frozen Spring Rolls (20pcs) x ${quantity}`;
+                price = 60;
+                description = `Frozen Spring Rolls (20pcs)`;
+                type = 'spring-rolls-20';
             } else if (product === 'spring-rolls-140') {
-                price = 140 * quantity;
-                description = `Frozen Spring Rolls (50pcs) x ${quantity}`;
+                price = 140;
+                description = `Frozen Spring Rolls (50pcs)`;
+                type = 'spring-rolls-50';
             }
 
-            const message = `*New Order From ${name}*%0A%0A*Product:* ${description}%0A*Total:* ₵${price}%0A%0A*Customer Details:*%0A*Name:* ${name}%0A*Phone:* ${phone}${address ? `%0A*Delivery Address:* ${address}` : ''}`;
+            // Add to cart
+            addToCart({
+                product: product,
+                type: type,
+                description: description,
+                price: price,
+                quantity: quantity
+            });
 
-            window.open(`https://wa.me/233554775921?text=${message}`, '_blank');
+            // Reset and close modal
             closeOrderModal();
-
-            // Reset form after submission
             document.getElementById('order-form').reset();
         });
 
-        // Handle WhatsApp Order Form Submission
+        // Handle WhatsApp Contact Form Submission
         document.getElementById('whatsapp-form').addEventListener('submit', function (e) {
             e.preventDefault();
 
-            // Get form values
             const name = document.getElementById('name').value;
             const phone = document.getElementById('phone-input').value;
             const user_message = document.getElementById('message').value;
 
-            // Validate fields
-            if (!name || !phone) {
-                alert('Please fill in your name and phone number');
+            if (!name || !user_message) {
+                alert('Please fill in your name and message');
                 return;
             }
 
-            // Format WhatsApp message
-            const text = `*New Order from ${name}*${name ? `\n\n*Name:* ${name}` : ''}\n*Phone:* ${phone}${user_message ? `\n*Message:* ${user_message}` : ''}`;
+            const text = `*New Message from ${name}*${name ? `\n\n*Name:* ${name}` : ''}${phone ? `\n*Phone:* ${phone}` : ''}${user_message ? `\n*Message:* ${user_message}` : ''}`;
 
-            // Open WhatsApp with the message
             window.open(`https://wa.me/233554775921?text=${encodeURIComponent(text)}`, '_blank');
-
-            // Optional: Reset form after submission
             this.reset();
-
-            // Optional: Show success message
             alert('Your message has been sent to WhatsApp!');
         });
+
+        // Load cart on page load
+        window.addEventListener('DOMContentLoaded', loadCart);
     </script>
+</body>
+
+</html>
