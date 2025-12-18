@@ -43,8 +43,27 @@
         }
     </style>
 
-    <!-- Custom CSS for Slider Animation -->
+    <!-- Custom CSS for Slider Animation & Extras -->
     <style>
+        /* Floating WhatsApp Button Pulse */
+        @keyframes shadow-pulse {
+            0% {
+                box-shadow: 0 0 0 0px rgba(37, 211, 102, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0px rgba(37, 211, 102, 0);
+            }
+        }
+
+        .whatsapp-float {
+            animation: shadow-pulse 2s infinite;
+        }
+
         /* Hero Slider Animation */
         .slider-images .slide {
             position: absolute;
@@ -58,23 +77,19 @@
             z-index: 0;
         }
 
-        /* Slide Animation Sequence */
         .slider-images .slide:nth-child(1) {
             animation: slideAnimation 15s infinite 0s;
             background-image: url('/images/plantain-chips.webp');
-            /* Spices/Cooking */
         }
 
         .slider-images .slide:nth-child(2) {
             animation: slideAnimation 15s infinite 5s;
             background-image: url('images/shito.webp');
-            /* Catering Setup */
         }
 
         .slider-images .slide:nth-child(3) {
             animation: slideAnimation 15s infinite 10s;
             background-image: url('images/spring-rolls.webp');
-            /* Snacks */
         }
 
         @keyframes slideAnimation {
@@ -138,71 +153,69 @@
                 FIDERIC FOODS
             </a>
 
-            <!-- Desktop Menu -->
-            <nav class="hidden md:flex items-center space-x-8">
-                <a href="#products"
-                    class="text-stone-700 hover:text-brand-primary font-medium transition-colors">Products</a>
-                <a href="#catering"
-                    class="text-stone-700 hover:text-brand-primary font-medium transition-colors">Catering</a>
-                <a href="#contact-us"
-                    class="text-stone-700 hover:text-brand-primary font-medium transition-colors">Contact</a>
+            <!-- Navigation Actions -->
+            <div class="flex items-center gap-4 md:gap-8">
+                <!-- Desktop Menu -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#about"
+                        class="text-stone-700 hover:text-brand-primary font-medium transition-colors">About</a>
+                    <a href="#products"
+                        class="text-stone-700 hover:text-brand-primary font-medium transition-colors">Products</a>
+                    <a href="#catering"
+                        class="text-stone-700 hover:text-brand-primary font-medium transition-colors">Catering</a>
+                    <a href="#contact-us"
+                        class="text-stone-700 hover:text-brand-primary font-medium transition-colors">Contact</a>
+                </nav>
 
-                <!-- Cart Button -->
-                <button onclick="openCart()" class="relative text-stone-700 hover:text-brand-primary transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <!-- Cart Button (Always Visible) -->
+                <button onclick="openCart()"
+                    class="relative text-stone-700 hover:text-brand-primary transition-colors p-2">
+                    <svg class="w-6 h-6 md:w-7 md:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
                         </path>
                     </svg>
                     <span id="cart-count"
-                        class="absolute -top-2 -right-2 bg-brand-primary text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
+                        class="absolute -top-1 -right-1 bg-brand-primary text-white text-[10px] md:text-xs font-bold rounded-full h-4 w-4 md:h-5 md:w-5 flex items-center justify-center hidden">0</span>
                 </button>
 
-                <a onclick="openOrderModal('spring-rolls', 14)"
-                    class="bg-brand-primary hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 flex items-center gap-2 cursor-pointer">
+                <!-- Desktop Order Button -->
+                <a onclick="openOrderModal('na')"
+                    class="hidden md:flex bg-brand-primary hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-bold shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 items-center gap-2 cursor-pointer">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
                     </svg>
                     Order Now
                 </a>
-            </nav>
 
-            <!-- Mobile Cart Button -->
-            <button onclick="openCart()"
-                class="md:hidden relative text-stone-700 hover:text-brand-primary transition-colors mr-3">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                    </path>
-                </svg>
-                <span id="mobile-cart-icon-count"
-                    class="absolute -top-2 -right-2 bg-brand-primary text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
-            </button>
-
-            <!-- Mobile Menu Button -->
-            <button id="mobile-menu-btn" class="md:hidden text-stone-700 hover:text-brand-primary focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
-                    </path>
-                </svg>
-            </button>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn"
+                    class="md:hidden text-stone-700 hover:text-brand-primary focus:outline-none">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16">
+                        </path>
+                    </svg>
+                </button>
+            </div>
         </div>
 
         <!-- Mobile Menu Overlay -->
         <div id="mobile-menu"
             class="hidden absolute top-20 left-0 w-full bg-white shadow-lg border-t border-gray-100 p-6 flex-col space-y-4 md:hidden">
+            <a href="#about" class="block text-lg font-medium text-stone-700 hover:text-brand-primary">About</a>
             <a href="#products" class="block text-lg font-medium text-stone-700 hover:text-brand-primary">Products</a>
             <a href="#catering" class="block text-lg font-medium text-stone-700 hover:text-brand-primary">Catering</a>
             <a href="#contact-us" class="block text-lg font-medium text-stone-700 hover:text-brand-primary">Contact</a>
+
             <button onclick="openCart()"
                 class="block w-full text-left text-lg font-medium text-stone-700 hover:text-brand-primary">
                 View Cart (<span id="mobile-cart-count">0</span>)
             </button>
-            <a onclick="openOrderModal('spring-rolls', 14)"
+            <a onclick="openOrderModal('na')"
                 class="block w-full text-center bg-brand-primary text-white px-6 py-3 rounded-lg font-bold cursor-pointer">Order
-                on
-                WhatsApp</a>
+                Now</a>
         </div>
     </header>
 
@@ -220,8 +233,7 @@
         <div class="hero-overlay absolute inset-0 z-10"></div>
 
         <div class="relative z-20 text-center px-6 max-w-4xl mx-auto mt-16">
-            <span
-                class="block text-brand-primary font-bold tracking-[0.2em] uppercase mb-4 text-sm md:text-base animate-fade-in-up">Taste
+            <span class="block text-brand-primary font-bold tracking-[0.2em] uppercase mb-4 text-sm md:text-base">Taste
                 the Tradition</span>
             <h1
                 class="font-heading text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight text-shadow">
@@ -230,18 +242,59 @@
             <p
                 class="text-gray-100 text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto leading-relaxed text-shadow-sm">
                 Quality, flavor, and tradition crafted into every dish. From our premium Shito, Deluxe Spring Rolls,
-                Cruncy Plantain Chips to elegant catering,
+                Crunchy Plantain Chips to elegant catering,
                 experience the Fideric Foods difference.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="https://wa.me/c/233554775921" target="_blank"
+                <a href="#products"
                     class="bg-brand-primary hover:bg-orange-600 text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg hover:shadow-brand-primary/40 transition-all transform hover:-translate-y-1">
-                    View Catalog & Order
+                    View Products & Order
                 </a>
-                <a href="#catering"
+                <button onclick="openCateringModal()"
                     class="bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/30 text-white px-8 py-4 rounded-lg font-bold text-lg transition-all hover:border-white">
                     Book Catering
-                </a>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 bg-white overflow-hidden">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2 relative">
+                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-brand-primary opacity-20 rounded-full blur-3xl">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-brand-accent opacity-20 rounded-full blur-3xl">
+                    </div>
+                    <img src="images/shito.webp" alt="Cooking tradition"
+                        class="rounded-2xl shadow-2xl relative z-10 w-full h-[500px] object-cover">
+                </div>
+                <div class="md:w-1/2">
+                    <span class="text-brand-primary font-bold tracking-widest uppercase mb-4 block">Our Heritage</span>
+                    <h2 class="font-heading text-4xl md:text-5xl font-bold text-brand-secondary mb-6">A Passion for
+                        Authentic Flavor</h2>
+                    <p class="text-stone-600 text-lg leading-relaxed mb-6">
+                        Fideric Foods was born out of a simple desire: to share the authentic, soul-warming flavors of
+                        Ghanaian cuisine with the world. What started in a family kitchen has grown into a premium food
+                        brand known for quality and consistency.
+                    </p>
+                    <p class="text-stone-600 text-lg leading-relaxed mb-8">
+                        Every jar of Shito we seal and every batch of Plantain Chips we fry is a tribute to our
+                        heritage. We don't just sell food; we share a piece of our home with you.
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <p class="text-3xl font-bold text-brand-primary mb-1">100%</p>
+                            <p class="text-stone-500 text-sm uppercase font-bold tracking-tighter">Natural Ingredients
+                            </p>
+                        </div>
+                        <div>
+                            <p class="text-3xl font-bold text-brand-primary mb-1">Accra</p>
+                            <p class="text-stone-500 text-sm uppercase font-bold tracking-tighter">Based & Proud</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -265,11 +318,22 @@
                     <div class="relative h-64 overflow-hidden">
                         <img src="images/shito.webp" alt="Premium Shito Sauce"
                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div
+                            class="absolute top-4 left-4 bg-orange-600 text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-md uppercase tracking-wider">
+                            Best Seller</div>
                     </div>
                     <div class="p-8">
-                        <h3
-                            class="font-heading text-2xl font-bold text-stone-800 mb-3 group-hover:text-brand-secondary transition-colors">
-                            Premium Shito</h3>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3
+                                class="font-heading text-2xl font-bold text-stone-800 group-hover:text-brand-secondary transition-colors">
+                                Premium Shito</h3>
+                            <div class="flex items-center text-brand-accent text-sm" aria-label="Rated 4.9 out of 5">
+                                <span class="mr-1">4.9</span>
+                                <span class="text-[13px]">★★★★★</span>
+                            </div>
+                        </div>
+                        <p class="text-brand-primary text-xs font-bold mb-2 italic">Pairs perfectly with Kenkey, Gari,
+                            or Fried Rice</p>
                         <p class="text-stone-600 mb-6 line-clamp-3">The perfect blend of smoked fish, shrimp, onions,
                             and rich spices. Deep, savory, and powerfully addictive. Essential for a true Ghanaian
                             dining experience.</p>
@@ -291,9 +355,17 @@
                             NEW</div>
                     </div>
                     <div class="p-8">
-                        <h3
-                            class="font-heading text-2xl font-bold text-stone-800 mb-3 group-hover:text-brand-secondary transition-colors">
-                            Crunchy Plantain Chips</h3>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3
+                                class="font-heading text-2xl font-bold text-stone-800 group-hover:text-brand-secondary transition-colors">
+                                Crunchy Plantain Chips</h3>
+                            <div class="flex items-center text-brand-accent text-sm" aria-label="Rated 4.8 out of 5">
+                                <span class="mr-1">4.8</span>
+                                <span class="text-[13px]">★★★★★</span>
+                            </div>
+                        </div>
+                        <p class="text-brand-primary text-xs font-bold mb-2 italic">Great for parties and quick snacks
+                        </p>
                         <p class="text-stone-600 mb-6 line-clamp-3">Thinly sliced, perfectly seasoned, and fried to an
                             unmatched crunch. A healthy snack that balances natural sweetness and savory notes
                             flawlessly.</p>
@@ -310,11 +382,22 @@
                     <div class="relative h-64 overflow-hidden">
                         <img src="images/spring-rolls.webp" alt="Spring Rolls"
                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <div
+                            class="absolute top-4 left-4 bg-brand-secondary text-white text-[10px] font-bold px-2 py-1 rounded-md shadow-md uppercase tracking-wider">
+                            Crowd Favorite</div>
                     </div>
                     <div class="p-8">
-                        <h3
-                            class="font-heading text-2xl font-bold text-stone-800 mb-3 group-hover:text-brand-secondary transition-colors">
-                            Deluxe Spring Rolls</h3>
+                        <div class="flex items-center justify-between mb-2">
+                            <h3
+                                class="font-heading text-2xl font-bold text-stone-800 group-hover:text-brand-secondary transition-colors">
+                                Deluxe Spring Rolls</h3>
+                            <div class="flex items-center text-brand-accent text-sm" aria-label="Rated 5.0 out of 5">
+                                <span class="mr-1">5.0</span>
+                                <span class="text-[13px]">★★★★★</span>
+                            </div>
+                        </div>
+                        <p class="text-brand-primary text-xs font-bold mb-2 italic">Great for parties and quick snacks
+                        </p>
                         <p class="text-stone-600 mb-6 line-clamp-3">Crisp on the outside, moist and flavorful on the
                             inside. Our spring rolls are sold <strong>frozen or fried</strong>, allowing you to enjoy
                             them instantly or fresh at home.</p>
@@ -371,11 +454,17 @@
                             Timely Delivery & Setup
                         </li>
                     </ul>
-                    <a href="https://wa.me/233554775921?text=Hello%20Fideric%20Foods%2C%20I%20am%20interested%20in%20your%20catering%20services."
-                        target="_blank"
-                        class="inline-block bg-brand-accent text-brand-secondary hover:bg-white hover:text-brand-secondary font-bold px-8 py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-1">
-                        Request a Catering Quote
-                    </a>
+                    <div class="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+                        <a href="https://wa.me/233554775921?text=Hello%20Fideric%20Foods%2C%20I%20am%20interested%20in%20your%20catering%20services."
+                            target="_blank"
+                            class="inline-block bg-brand-accent text-brand-secondary hover:bg-white hover:text-brand-secondary font-bold px-8 py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-1 text-center">
+                            Quick WhatsApp Enquiry
+                        </a>
+                        <button onclick="openCateringModal()"
+                            class="inline-block bg-white/10 border border-white/40 text-white hover:bg-white hover:text-brand-secondary font-bold px-8 py-4 rounded-lg shadow-lg transition-all transform hover:-translate-y-1 text-center">
+                            Detailed Catering Form
+                        </button>
+                    </div>
                 </div>
                 <div class="lg:w-1/2 relative">
                     <div class="absolute -inset-4 bg-brand-accent/20 rounded-2xl rotate-3 blur-sm"></div>
@@ -500,8 +589,199 @@
         </div>
     </section>
 
+    <!-- Testimonials Section -->
+    <section class="py-24 px-6 bg-stone-100">
+        <div class="container mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl font-bold text-brand-secondary mb-4">What Our Foodies Say</h2>
+                <div class="h-1 w-24 bg-brand-primary mx-auto mb-6 rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-md border-t-4 border-brand-primary">
+                    <div class="flex text-brand-accent mb-4">
+                        ★★★★★
+                    </div>
+                    <p class="text-stone-600 italic mb-6">"The Shito is hands down the best I've tasted in Accra.
+                        Perfectly spicy and packed with chunks of meat. My family can't get enough of it!"</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-brand-light rounded-full flex items-center justify-center font-bold text-brand-secondary">
+                            AA</div>
+                        <span class="font-bold text-stone-800">Ama A.</span>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md border-t-4 border-brand-primary">
+                    <div class="flex text-brand-accent mb-4">
+                        ★★★★★
+                    </div>
+                    <p class="text-stone-600 italic mb-6">"Used Fideric Foods for my daughter's birthday catering. The
+                        spring rolls were the highlight—crispy and fresh even hours later. Professional service!"</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-brand-light rounded-full flex items-center justify-center font-bold text-brand-secondary">
+                            KO</div>
+                        <span class="font-bold text-stone-800">Kofi O.</span>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-md border-t-4 border-brand-primary">
+                    <div class="flex text-brand-accent mb-4">
+                        ★★★★★
+                    </div>
+                    <p class="text-stone-600 italic mb-6">"I always stock up on their frozen spring rolls. They are my
+                        go-to snack for guests. The plantain chips are also dangerously addictive!"</p>
+                    <div class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-brand-light rounded-full flex items-center justify-center font-bold text-brand-secondary">
+                            SN</div>
+                        <span class="font-bold text-stone-800">Sarah N.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 px-6 bg-white">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center mb-16">
+                <h2 class="font-heading text-4xl font-bold text-brand-secondary mb-4">Common Questions</h2>
+                <p class="text-stone-600">Everything you need to know about our products and services.</p>
+            </div>
+            <div class="space-y-4">
+                <details class="group bg-stone-50 rounded-xl overflow-hidden border border-stone-200" open>
+                    <summary
+                        class="flex justify-between items-center p-6 cursor-pointer font-bold text-stone-800 list-none">
+                        How long does the Shito last?
+                        <span class="transition group-open:rotate-180">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-stone-600">
+                        Our Shito is slow-cooked with natural preservatives (oil and spices). It can last up to 6 months
+                        when stored in a cool, dry place and used with a clean, dry spoon. Refrigeration extends
+                        freshness.
+                    </div>
+                </details>
+                <details class="group bg-stone-50 rounded-xl overflow-hidden border border-stone-200">
+                    <summary
+                        class="flex justify-between items-center p-6 cursor-pointer font-bold text-stone-800 list-none">
+                        Where do you deliver?
+                        <span class="transition group-open:rotate-180">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-stone-600">
+                        We deliver across Accra and Tema. Delivery fees vary based on your location. We also offer bulk
+                        shipping to other regions and international orders upon special request.
+                    </div>
+                </details>
+                <details class="group bg-stone-50 rounded-xl overflow-hidden border border-stone-200">
+                    <summary
+                        class="flex justify-between items-center p-6 cursor-pointer font-bold text-stone-800 list-none">
+                        How do I cook the frozen spring rolls?
+                        <span class="transition group-open:rotate-180">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </span>
+                    </summary>
+                    <div class="px-6 pb-6 text-stone-600">
+                        Fry them directly from the freezer in hot oil until golden brown (approx 5-7 mins). Do not thaw
+                        them first as this may make the pastry soggy.
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Gallery -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="font-heading text-4xl font-bold text-brand-secondary mb-4">Follow Our Journey</h2>
+            <p class="text-stone-600 mb-12">See what's cooking on our Instagram <a
+                    href="https://instagram.com/fidericfoods" target="_blank"
+                    class="text-brand-primary font-bold hover:underline">@fidericfoods</a></p>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                <div class="aspect-square bg-stone-100 rounded-lg overflow-hidden group relative">
+                    <img src="images/shito.webp" alt="Insta 1"
+                        class="social-image w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer">
+                    <div
+                        class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.179-6.82 2.619-6.998 6.956-.059 1.296-.073 1.705-.073 4.947 0 3.242.014 3.65.072 4.947.179 4.337 2.619 6.8 6.956 6.956 1.296.058 1.705.072 4.947.072 3.242 0 3.65-.014 4.947-.072 4.359-.179 6.82-2.619 6.998-6.956.059-1.296.073-1.705.073-4.947 0-3.242-.014-3.65-.072-4.947-.179-4.337-2.619-6.8-6.956-6.956-1.297-.059-1.705-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="aspect-square bg-stone-100 rounded-lg overflow-hidden group relative">
+                    <img src="images/plantain-chips.webp" alt="Insta 2"
+                        class="social-image w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer">
+                    <div
+                        class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.179-6.82 2.619-6.998 6.956-.059 1.296-.073 1.705-.073 4.947 0 3.242.014 3.65.072 4.947.179 4.337 2.619 6.8 6.956 6.956 1.296.058 1.705.072 4.947.072 3.242 0 3.65-.014 4.947-.072 4.359-.179 6.82-2.619 6.998-6.956.059-1.296.073-1.705.073-4.947 0-3.242-.014-3.65-.072-4.947-.179-4.337-2.619-6.8-6.956-6.956-1.297-.059-1.705-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="aspect-square bg-stone-100 rounded-lg overflow-hidden group relative">
+                    <img src="images/spring-rolls.webp" alt="Insta 3"
+                        class="social-image w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer">
+                    <div
+                        class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.179-6.82 2.619-6.998 6.956-.059 1.296-.073 1.705-.073 4.947 0 3.242.014 3.65.072 4.947.179 4.337 2.619 6.8 6.956 6.956 1.296.058 1.705.072 4.947.072 3.242 0 3.65-.014 4.947-.072 4.359-.179 6.82-2.619 6.998-6.956.059-1.296.073-1.705.073-4.947 0-3.242-.014-3.65-.072-4.947-.179-4.337-2.619-6.8-6.956-6.956-1.297-.059-1.705-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="aspect-square bg-stone-100 rounded-lg overflow-hidden group relative">
+                    <img src="images/catering.webp" alt="Insta 4"
+                        class="social-image w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer">
+                    <div
+                        class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.179-6.82 2.619-6.998 6.956-.059 1.296-.073 1.705-.073 4.947 0 3.242.014 3.65.072 4.947.179 4.337 2.619 6.8 6.956 6.956 1.296.058 1.705.072 4.947.072 3.242 0 3.65-.014 4.947-.072 4.359-.179 6.82-2.619 6.998-6.956.059-1.296.073-1.705.073-4.947 0-3.242-.014-3.65-.072-4.947-.179-4.337-2.619-6.8-6.956-6.956-1.297-.059-1.705-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="aspect-square bg-stone-100 rounded-lg overflow-hidden group relative">
+                    <img src="images/shito.webp" alt="Insta 5"
+                        class="social-image w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer">
+                    <div
+                        class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.179-6.82 2.619-6.998 6.956-.059 1.296-.073 1.705-.073 4.947 0 3.242.014 3.65.072 4.947.179 4.337 2.619 6.8 6.956 6.956 1.296.058 1.705.072 4.947.072 3.242 0 3.65-.014 4.947-.072 4.359-.179 6.82-2.619 6.998-6.956.059-1.296.073-1.705.073-4.947 0-3.242-.014-3.65-.072-4.947-.179-4.337-2.619-6.8-6.956-6.956-1.297-.059-1.705-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="aspect-square bg-stone-100 rounded-lg overflow-hidden group relative">
+                    <img src="images/plantain-chips.webp" alt="Insta 6"
+                        class="social-image w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 cursor-pointer">
+                    <div
+                        class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.179-6.82 2.619-6.998 6.956-.059 1.296-.073 1.705-.073 4.947 0 3.242.014 3.65.072 4.947.179 4.337 2.619 6.8 6.956 6.956 1.296.058 1.705.072 4.947.072 3.242 0 3.65-.014 4.947-.072 4.359-.179 6.82-2.619 6.998-6.956.059-1.296.073-1.705.073-4.947 0-3.242-.014-3.65-.072-4.947-.179-4.337-2.619-6.8-6.956-6.956-1.297-.059-1.705-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Why Choose Us / Quality Assurance -->
-    <section class="py-20 px-6 bg-white">
+    <section class="py-20 px-6 bg-brand-light">
         <div class="container mx-auto">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
                 <div class="p-6">
@@ -544,6 +824,25 @@
             </div>
         </div>
     </section>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+        class="hidden fixed bottom-6 right-24 z-[55] bg-stone-900/90 text-white p-3 rounded-full shadow-lg hover:bg-stone-800 transition flex items-center justify-center"
+        title="Back to top">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+        </svg>
+    </button>
+
+    <!-- Floating WhatsApp Widget 
+    <a href="https://wa.me/233554775921" target="_blank"
+        class="fixed bottom-6 right-6 z-[60] bg-[#25D366] text-white p-4 rounded-full shadow-2xl whatsapp-float hover:scale-110 transition-transform flex items-center justify-center"
+        title="Chat with us">
+        <svg class="w-7 h-7" fill="currentColor" viewBox="0 0 24 24">
+            <path
+                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+        </svg>
+    </a>-->
 
     <!-- Footer -->
     <footer id="contact" class="bg-stone-900 text-stone-400 py-12 border-t border-stone-800">
@@ -592,24 +891,117 @@
                 </div>
             </div>
 
-            <div class="mt-8 pt-8 border-t border-stone-800 text-center text-xs text-stone-600">
-                <p>&copy; 2025 Fideric Foods. All rights reserved. | 🧑‍💻/❤️ by <a
-                        href="https://www.linkedin.com/in/erickwakyeboateng/" target="_blank">E R I C</a></p>
+            <div class="mt-8 pt-8 border-t border-stone-800 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="text-center md:text-left">
+                    <!----<h5 class="text-white font-bold mb-4">Subscribe for Updates</h5>
+                    <form onsubmit="event.preventDefault(); alert('Thank you for subscribing!'); this.reset();"
+                        class="flex max-w-md mx-auto md:mx-0">
+                        <input type="email" placeholder="Email address"
+                            class="flex-1 bg-stone-800 border-none rounded-l-lg px-4 py-2 text-white focus:ring-1 focus:ring-brand-primary outline-none"
+                            required>
+                        <button type="submit"
+                            class="bg-brand-primary text-white px-4 py-2 rounded-r-lg font-bold hover:bg-orange-600 transition-colors">Join</button>
+                    </form>--->
+                </div>
+                <div class="text-center md:text-right text-xs text-stone-600">
+                    <p>&copy; 2025 Fideric Foods. All rights reserved. | 🧑‍💻/❤️ by <a
+                            href="https://www.linkedin.com/in/erickwakyeboateng/" target="_blank">E R I C</a></p>
+                </div>
             </div>
         </div>
     </footer>
+
+    <!-- Image Lightbox Modal -->
+    <div id="image-lightbox" class="fixed inset-0 bg-black/80 z-[70] hidden items-center justify-center p-4">
+        <div class="relative max-w-3xl w-full">
+            <button onclick="closeLightbox()"
+                class="absolute -top-3 -right-3 bg-white text-black rounded-full w-8 h-8 flex items-center justify-center shadow-lg text-xl">&times;</button>
+            <img id="lightbox-img" src="" alt="Preview"
+                class="w-full max-h-[80vh] object-contain rounded-lg shadow-2xl">
+        </div>
+    </div>
+
+    <!-- Catering Modal -->
+    <div id="catering-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden p-4">
+        <div class="bg-white rounded-lg p-6 w-full max-w-xl mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-brand-secondary">Catering Enquiry</h2>
+                <button onclick="closeCateringModal()" class="text-2xl leading-none">&times;</button>
+            </div>
+            <p class="text-sm text-stone-600 mb-4">Share a few details about your event and we'll reply on WhatsApp with
+                a tailored quote.</p>
+            <form id="catering-form" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Your Name *</label>
+                        <input type="text" id="catering-name" required class="w-full p-2.5 border rounded"
+                            placeholder="John Doe">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Phone Number *</label>
+                        <input type="tel" id="catering-phone" required class="w-full p-2.5 border rounded"
+                            placeholder="055 477 5921">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Event Date *</label>
+                        <input type="date" id="catering-date" required class="w-full p-2.5 border rounded">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Estimated Guests *</label>
+                        <input type="number" id="catering-guests" min="1" required class="w-full p-2.5 border rounded"
+                            placeholder="50">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Event Type *</label>
+                        <select id="catering-type" required class="w-full p-2.5 border rounded">
+                            <option value="" selected disabled>Select type</option>
+                            <option>Wedding</option>
+                            <option>Birthday</option>
+                            <option>Corporate Event</option>
+                            <option>Church/Charity</option>
+                            <option>Private Party</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Event Location / Area *</label>
+                        <input type="text" id="catering-location" required class="w-full p-2.5 border rounded"
+                            placeholder="East Legon, Spintex, etc.">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-1">Menu Ideas / Notes</label>
+                    <textarea id="catering-notes" rows="4" class="w-full p-2.5 border rounded"
+                        placeholder="Eg. Mixed continental & Ghanaian, heavy on spring rolls and jollof..."></textarea>
+                </div>
+                <button type="submit"
+                    class="w-full bg-brand-primary text-white py-3 rounded font-bold hover:bg-orange-600 transition-colors flex items-center justify-center gap-2">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                    </svg>
+                    Send Enquiry on WhatsApp
+                </button>
+            </form>
+        </div>
+    </div>
 
     <!-- Order Modal -->
     <div id="order-modal" class="fixed inset-0 bg-black/70 flex items-center justify-center z-50 hidden p-4">
         <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-bold">Add to Cart</h2>
-                <button onclick="closeOrderModal()" class="text-2xl">&times;</button>
+                <button onclick="closeOrderModal()" class="text-2xl leading-none">&times;</button>
             </div>
             <form id="order-form">
                 <div class="mb-4">
                     <label class="block text-sm font-medium mb-2">Product</label>
                     <select id="product-type" class="w-full p-2 border rounded" onchange="toggleProductTypes()">
+                        <option value="na" selected disabled>Select Product</option>
                         <option value="shito">Premium Shito (₵80-₵90)</option>
                         <option value="plantain-chips-20">Plantain Chips ₵20</option>
                         <option value="plantain-chips-50">Plantain Chips ₵50</option>
@@ -667,7 +1059,7 @@
         <div class="bg-white rounded-lg p-6 w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold">Your Cart</h2>
-                <button onclick="closeCart()" class="text-2xl">&times;</button>
+                <button onclick="closeCart()" class="text-2xl leading-none">&times;</button>
             </div>
 
             <div id="cart-items" class="space-y-3 mb-6">
@@ -689,12 +1081,35 @@
                 <div>
                     <label class="block text-sm font-medium mb-2">Phone Number *</label>
                     <input type="tel" id="cart-phone" required class="w-full p-3 border rounded"
-                        placeholder="+233554775921">
+                        placeholder="0554775921">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium mb-2">Delivery Address (Optional)</label>
+                    <label class="block text-sm font-medium mb-2">Delivery Area (Accra/Tema)</label>
+                    <select id="cart-area" class="w-full p-3 border rounded">
+                        <option value="" selected disabled>Select area (optional)</option>
+                        <option>East Legon</option>
+                        <option>Spintex</option>
+                        <option>Teshie</option>
+                        <option>Nungua</option>
+                        <option>Osu</option>
+                        <option>Airport Residential</option>
+                        <option>Dansoman</option>
+                        <option>Tema Community 1-25</option>
+                        <option>Madina / Adenta</option>
+                        <option>Kasoa</option>
+                        <option>Achimota</option>
+                        <option>Other (see extra directions)</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Delivery Address</label>
                     <input type="text" id="cart-address" class="w-full p-3 border rounded"
-                        placeholder="Your delivery address">
+                        placeholder="House number / landmark">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium mb-2">Extra Directions (Optional)</label>
+                    <textarea id="cart-directions" rows="3" class="w-full p-3 border rounded"
+                        placeholder="Any landmarks or special delivery notes"></textarea>
                 </div>
             </div>
 
@@ -739,19 +1154,15 @@
             const count = cart.reduce((sum, item) => sum + item.quantity, 0);
             const cartCount = document.getElementById('cart-count');
             const mobileCartCount = document.getElementById('mobile-cart-count');
-            const mobileCartIconCount = document.getElementById('mobile-cart-icon-count');
 
             if (count > 0) {
                 cartCount.textContent = count;
                 cartCount.classList.remove('hidden');
                 cartCount.classList.add('cart-badge');
                 mobileCartCount.textContent = count;
-                mobileCartIconCount.textContent = count;
-                mobileCartIconCount.classList.remove('hidden');
             } else {
                 cartCount.classList.add('hidden');
                 mobileCartCount.textContent = '0';
-                mobileCartIconCount.classList.add('hidden');
             }
         }
 
@@ -770,8 +1181,6 @@
 
             saveCart();
             updateCartUI();
-
-            // Show success message
             //alert('Item added to cart!');
         }
 
@@ -848,13 +1257,14 @@
             const name = document.getElementById('cart-name').value.trim();
             const phone = document.getElementById('cart-phone').value.trim();
             const address = document.getElementById('cart-address').value.trim();
+            const area = document.getElementById('cart-area').value.trim();
+            const directions = document.getElementById('cart-directions').value.trim();
 
             if (!name || !phone) {
                 alert('Please fill in your name and phone number');
                 return;
             }
 
-            // Build WhatsApp message
             let message = `*New Order from ${name}*%0A%0A`;
             let total = 0;
 
@@ -868,23 +1278,28 @@
             message += `*Customer Details:*%0A`;
             message += `Name: ${name}%0A`;
             message += `Phone: ${phone}`;
+            if (area) {
+                message += `%0AArea: ${area}`;
+            }
             if (address) {
-                message += `%0ADelivery Address: ${address}`;
+                message += `%0AAddress: ${address}`;
+            }
+            if (directions) {
+                message += `%0ADirections: ${directions}`;
             }
 
-            // Open WhatsApp
             window.open(`https://wa.me/233554775921?text=${message}`, '_blank');
 
-            // Clear cart after order
             cart = [];
             saveCart();
             updateCartUI();
             closeCart();
 
-            // Reset form
             document.getElementById('cart-name').value = '';
             document.getElementById('cart-phone').value = '';
             document.getElementById('cart-address').value = '';
+            document.getElementById('cart-area').value = '';
+            document.getElementById('cart-directions').value = '';
         }
 
         // Mobile Menu Toggle
@@ -904,15 +1319,25 @@
             });
         });
 
-        // Navbar scroll effect
+        // Navbar scroll effect + Back to Top visibility
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
+            const backToTop = document.getElementById('back-to-top-btn');
+
             if (window.scrollY > 50) {
                 navbar.classList.add('shadow-md');
                 navbar.classList.add('bg-white/95');
                 navbar.classList.remove('bg-transparent');
             } else {
                 navbar.classList.remove('shadow-md');
+            }
+
+            if (backToTop) {
+                if (window.scrollY > 400) {
+                    backToTop.classList.remove('hidden');
+                } else {
+                    backToTop.classList.add('hidden');
+                }
             }
         });
 
@@ -939,11 +1364,9 @@
             const plantainTypeSection = document.getElementById('plantain-type-section');
             const shitoTypeSection = document.getElementById('shito-type-section');
 
-            // Hide all type sections first
             plantainTypeSection.classList.add('hidden');
             shitoTypeSection.classList.add('hidden');
 
-            // Show relevant section based on product
             if (productSelect.value.includes('plantain-chips')) {
                 plantainTypeSection.classList.remove('hidden');
             } else if (productSelect.value === 'shito') {
@@ -958,7 +1381,6 @@
             const product = document.getElementById('product-type').value;
             const quantity = parseInt(document.getElementById('order-quantity').value);
 
-            // Get plantain type if applicable
             let plantainType = '';
             if (product.includes('plantain-chips')) {
                 const selectedType = document.querySelector('input[name="plantain-type"]:checked');
@@ -967,7 +1389,6 @@
                 }
             }
 
-            // Get shito type if applicable
             let shitoType = '';
             let shitoPrice = 80;
             if (product === 'shito') {
@@ -1008,9 +1429,11 @@
                 price = 140;
                 description = `Frozen Spring Rolls (50pcs)`;
                 type = 'spring-rolls-50';
+            } else {
+                alert('invalid product')
+                return
             }
 
-            // Add to cart
             addToCart({
                 product: product,
                 type: type,
@@ -1019,12 +1442,11 @@
                 quantity: quantity
             });
 
-            // Reset and close modal
             closeOrderModal();
             document.getElementById('order-form').reset();
         });
 
-        // Handle WhatsApp Contact Form Submission
+        // WhatsApp Contact Form Submission
         document.getElementById('whatsapp-form').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -1042,6 +1464,70 @@
             window.open(`https://wa.me/233554775921?text=${encodeURIComponent(text)}`, '_blank');
             this.reset();
             alert('Your message has been sent to WhatsApp!');
+        });
+
+        // Catering Modal Functions
+        function openCateringModal() {
+            document.getElementById('catering-modal').classList.remove('hidden');
+        }
+
+        function closeCateringModal() {
+            document.getElementById('catering-modal').classList.add('hidden');
+        }
+
+        document.getElementById('catering-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById('catering-name').value.trim();
+            const phone = document.getElementById('catering-phone').value.trim();
+            const date = document.getElementById('catering-date').value;
+            const guests = document.getElementById('catering-guests').value;
+            const type = document.getElementById('catering-type').value;
+            const location = document.getElementById('catering-location').value.trim();
+            const notes = document.getElementById('catering-notes').value.trim();
+
+            if (!name || !phone || !date || !guests || !type || !location) {
+                alert('Please fill in all required fields (marked with *)');
+                return;
+            }
+
+            let msg = `*New Catering Enquiry from ${name}*%0A%0A`;
+            msg += `*Name:* ${name}%0A`;
+            msg += `*Phone:* ${phone}%0A`;
+            msg += `*Event Date:* ${date}%0A`;
+            msg += `*Guests:* ${guests}%0A`;
+            msg += `*Event Type:* ${type}%0A`;
+            msg += `*Location/Area:* ${location}`;
+            if (notes) {
+                msg += `%0A*Menu Ideas / Notes:* ${notes}`;
+            }
+
+            window.open(`https://wa.me/233554775921?text=${msg}`, '_blank');
+
+            this.reset();
+            closeCateringModal();
+        });
+
+        // Social Gallery Lightbox
+        function closeLightbox() {
+            document.getElementById('image-lightbox').classList.add('hidden');
+            document.getElementById('image-lightbox').classList.remove('flex');
+        }
+
+        document.querySelectorAll('.social-image').forEach(img => {
+            img.addEventListener('click', () => {
+                const lightbox = document.getElementById('image-lightbox');
+                const lightboxImg = document.getElementById('lightbox-img');
+                lightboxImg.src = img.src;
+                lightbox.classList.remove('hidden');
+                lightbox.classList.add('flex');
+            });
+        });
+
+        document.getElementById('image-lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'image-lightbox') {
+                closeLightbox();
+            }
         });
 
         // Load cart on page load
