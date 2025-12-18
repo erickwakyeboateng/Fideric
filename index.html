@@ -610,7 +610,7 @@
                 <div class="mb-4">
                     <label class="block text-sm font-medium mb-2">Product</label>
                     <select id="product-type" class="w-full p-2 border rounded" onchange="toggleProductTypes()">
-                        <option value="shito">Premium Shito (₵80-₵85)</option>
+                        <option value="shito">Premium Shito (₵80-₵90)</option>
                         <option value="plantain-chips-20">Plantain Chips ₵20</option>
                         <option value="plantain-chips-50">Plantain Chips ₵50</option>
                         <option value="plantain-chips-100">Plantain Chips ₵100</option>
@@ -645,7 +645,7 @@
                         </label>
                         <label class="flex items-center">
                             <input type="radio" name="shito-type" value="meat-chunk" class="mr-2">
-                            <span>Meat Chunk (₵85)</span>
+                            <span>Meat Chunk (₵90)</span>
                         </label>
                     </div>
                 </div>
@@ -975,7 +975,7 @@
                 if (selectedType) {
                     if (selectedType.value === 'meat-chunk') {
                         shitoType = 'Meat Chunk';
-                        shitoPrice = 85;
+                        shitoPrice = 90;
                     } else {
                         shitoType = 'Regular';
                         shitoPrice = 80;
